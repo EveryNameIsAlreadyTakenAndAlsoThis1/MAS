@@ -10,7 +10,7 @@ public class main {
         //uloha3();
         //uloha4();
         //uloha4n(2);
-        uloha5(false);
+        //uloha5(true);
 
 
 
@@ -153,9 +153,12 @@ public class main {
     }
     public static void uloha5(boolean trojuholnik){
         if (trojuholnik){
-            TriangularRNG vestica1=new TriangularRNG(30.0,80.0,100.0);
-            TriangularRNG vestica2=new TriangularRNG(30.0,80.0,100.0);
-            TriangularRNG vestica3=new TriangularRNG(30.0,80.0,100.0);
+            UniformContinuousRNG vestica1=new UniformContinuousRNG(0.0,100.0);
+            UniformContinuousRNG vestica2=new UniformContinuousRNG(0.0,100.0);
+            UniformContinuousRNG vestica3=new UniformContinuousRNG(0.0,100.0);
+            TriangularRNG vestica1uspesnost=new TriangularRNG(30.0,80.0,100.0);
+            TriangularRNG vestica2uspesnost=new TriangularRNG(30.0,80.0,100.0);
+            TriangularRNG vestica3uspesnost=new TriangularRNG(30.0,80.0,100.0);
 
             int pocetReplikacii=10000000;
             double pocetRovnakych1a2=0;
@@ -163,9 +166,9 @@ public class main {
             double pocetRovnakych1a2a3=0;
             double pocetPravda1a2a3=0;
             for (int i=0;i<pocetReplikacii;i++){
-                boolean pravdaVestica1=(vestica1.sample()<=80.0) ? true:false;
-                boolean pravdaVestica2=(vestica2.sample()<=80.0) ? true:false;
-                boolean pravdaVestica3=(vestica3.sample()<=80.0) ? true:false;
+                boolean pravdaVestica1=(vestica1.sample()<=vestica1uspesnost.sample()) ? true:false;
+                boolean pravdaVestica2=(vestica2.sample()<=vestica2uspesnost.sample()) ? true:false;
+                boolean pravdaVestica3=(vestica3.sample()<=vestica3uspesnost.sample()) ? true:false;
                 if(pravdaVestica1==pravdaVestica2){
                     pocetRovnakych1a2++;
                     if (pravdaVestica1){
