@@ -8,8 +8,11 @@ public class main {
         //uloha1();
         //uloha2();
         //uloha3();
-        //uloha4(1);
-        //uloha4n(4);
+        //uloha4();
+        //uloha4n(2);
+        uloha5(false);
+
+
 
 
     }
@@ -106,7 +109,7 @@ public class main {
 
     }
 
-    public static void uloha4(int pocetRozmerov){
+    public static void uloha4(){
         int pocetReplikacii=100000;
         UniformDiscreteRNG generator=new UniformDiscreteRNG(0,1);
         int pocetKrokov=1000;
@@ -133,13 +136,9 @@ public class main {
         UniformDiscreteRNG generator=new UniformDiscreteRNG(0,pocetRozmerov*2-1);
         int pocetKrokov=1000;
         double konecnaVzdialenost=0;
-
-
         for (int y=0;y<pocetReplikacii;y++) {
-            double vzdialenost = 0;
             double[]rozmer= new double[pocetRozmerov];
             for (int i = 0; i < pocetKrokov; i++) {
-
                 int sample=generator.sample();
                 int index=(int)Math.floor(sample/2);
                 rozmer[index]+= (sample%2==0) ? 1: (-1);
@@ -150,6 +149,74 @@ public class main {
         }
         System.out.println(konecnaVzdialenost/pocetReplikacii);
         System.out.println(Math.sqrt(2*pocetRozmerov*pocetKrokov/Math.PI));
+
+    }
+    public static void uloha5(boolean trojuholnik){
+        if (trojuholnik){
+            TriangularRNG vestica1=new TriangularRNG(30.0,80.0,100.0);
+            TriangularRNG vestica2=new TriangularRNG(30.0,80.0,100.0);
+            TriangularRNG vestica3=new TriangularRNG(30.0,80.0,100.0);
+
+            int pocetReplikacii=10000000;
+            double pocetRovnakych1a2=0;
+            double pocetPravda1a2=0;
+            double pocetRovnakych1a2a3=0;
+            double pocetPravda1a2a3=0;
+            for (int i=0;i<pocetReplikacii;i++){
+                boolean pravdaVestica1=(vestica1.sample()<=80.0) ? true:false;
+                boolean pravdaVestica2=(vestica2.sample()<=80.0) ? true:false;
+                boolean pravdaVestica3=(vestica3.sample()<=80.0) ? true:false;
+                if(pravdaVestica1==pravdaVestica2){
+                    pocetRovnakych1a2++;
+                    if (pravdaVestica1){
+                        pocetPravda1a2++;
+                    }
+                }
+                if (pravdaVestica1==pravdaVestica2 && pravdaVestica2==pravdaVestica3){
+                    pocetRovnakych1a2a3++;
+                    if (pravdaVestica1){
+                        pocetPravda1a2a3++;
+                    }
+                }
+
+            }
+            System.out.println(pocetPravda1a2/pocetRovnakych1a2*100);
+            System.out.println(pocetPravda1a2a3/pocetRovnakych1a2a3*100);
+        }else{
+        UniformContinuousRNG vestica1=new UniformContinuousRNG(0.0,100.0);
+        UniformContinuousRNG vestica2=new UniformContinuousRNG(0.0,100.0);
+        UniformContinuousRNG vestica3=new UniformContinuousRNG(0.0,100.0);
+
+
+        int pocetReplikacii=10000000;
+        double pocetRovnakych1a2=0;
+        double pocetPravda1a2=0;
+        double pocetRovnakych1a2a3=0;
+        double pocetPravda1a2a3=0;
+        for (int i=0;i<pocetReplikacii;i++){
+            boolean pravdaVestica1=(vestica1.sample()<=80.0) ? true:false;
+            boolean pravdaVestica2=(vestica2.sample()<=80.0) ? true:false;
+            boolean pravdaVestica3=(vestica3.sample()<=80.0) ? true:false;
+            if(pravdaVestica1==pravdaVestica2){
+                pocetRovnakych1a2++;
+                if (pravdaVestica1){
+                    pocetPravda1a2++;
+                }
+            }
+            if (pravdaVestica1==pravdaVestica2 && pravdaVestica2==pravdaVestica3){
+                pocetRovnakych1a2a3++;
+                if (pravdaVestica1){
+                    pocetPravda1a2a3++;
+                }
+            }
+
+        }
+        System.out.println(pocetPravda1a2/pocetRovnakych1a2*100);
+        System.out.println(pocetPravda1a2a3/pocetRovnakych1a2a3*100);
+    }
+    }
+    public static void uloha6(){
+
 
     }
 }
